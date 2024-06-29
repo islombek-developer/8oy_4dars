@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.generics import RetrieveUpdateDestroyAPIView,ListCreateAPIView,GenericAPIView
-from .serializers import TravelSerializer,HotelSerializer,KlassSerializer
-from .models import Travel,Hotel,Klass
+from .serializers import TravelSerializer,HotelSerializer,KlassSerializer, ProductsSerializer, CategorySerializer, ReviewSerializer
+from .models import Travel,Hotel,Klass, Products, Category, Review
 from rest_framework import mixins,generics
 
 class TravelAPIView(mixins.ListModelMixin,
@@ -103,3 +103,28 @@ class KlassAPIView(mixins.ListModelMixin,
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+    
+
+class ProductCreateAPIView(ListCreateAPIView):
+    queryset = Products.objects.all()
+    serializer_class = ProductsSerializer
+
+class ProductUpdateAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Products.objects.all()
+    serializer_class = ProductsSerializer
+
+class ReviewCreateAPIView(ListCreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+class ReviewUpdateAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+class CategoryCreateAPIView(ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class CategoryUpdateAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
